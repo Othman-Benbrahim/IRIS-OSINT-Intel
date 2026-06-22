@@ -1,35 +1,6 @@
 ---
 corpus:
-  version: '1.0'
-  question: Quelles actualités pour les prochains jours en France?
-  horodatage: '2026-06-22T10:11:20+00:00'
-  mode_collecte: reseau
   mode_synthese: extractif
-  hors_ligne: false
-  backends_actifs:
-  - exa
-  - tavily
-  - wayback
-  parse:
-    question: Quelles actualités pour les prochains jours en France?
-    entites:
-    - France
-    termes_cles:
-    - actualités
-    - prochains
-    - jours
-    - france
-    horizon_mois: null
-    domaine_academique: false
-  requetes:
-  - angle: factuel
-    requete: actualités prochains jours france
-  - angle: prospectif
-    requete: actualités prochains jours france perspectives 2027
-  - angle: contradictoire
-    requete: actualités prochains jours france risques critiques arguments contre
-  - angle: signaux_faibles
-    requete: actualités prochains jours france signes avant-coureurs signaux faibles
   entites:
   - nom: France
     type: à_qualifier
@@ -263,98 +234,34 @@ corpus:
     archive_url: null
     date: '2026-06-22'
     corrobore: false
-  - texte: 'Le Monde in English – World news, culture and opinion
-
-
-      # Iran, US announce framework deal to end war
-
-
-      KENT NISHIMURA/AFP
-
-
-      The agreement, which is set to be signed on June 19 in Switzerland, lays out
-      the principles for ending the fighting, ahead of a 60-day round of negotiations
-      on Iran''s nuclear program, enriched uranium stockpiles and the lifting of US
-      sanctions.'
-    url: https://www.lemonde.fr/
-    fiabilite: 4
-    backend: exa
-    archive_url: http://web.archive.org/web/20260618053259/https://www.lemonde.fr/
-    date: null
-    corrobore: false
-  - texte: Suivez l’actualité en direct dans l’application La Croix.
-    url: https://www.la-croix.com
-    fiabilite: 1
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260619111321/https://www.la-croix.com/
-    date: null
-    corrobore: false
-  - texte: Météo-France à vos côtés, dans un climat qui change.
-    url: https://meteofrance.com/actualites
-    fiabilite: 2
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260620152610/https://meteofrance.com/actualites
-    date: null
-    corrobore: false
-  - texte: '* Télécharger l''appli pour Android.'
-    url: https://news.google.com/home?hl=fr&gl=FR&ceid=FR%3Afr
-    fiabilite: 2
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260622092814/https://news.google.com/home?hl=fr&gl=FR&ceid=FR:fr
-    date: null
-    corrobore: false
-  - texte: Vidéos Longs formats Newsletters Émissions Podcasts.
-    url: https://www.bfmtv.com
-    fiabilite: 2
-    backend: tavily
-    archive_url: null
-    date: null
-    corrobore: false
-  - texte: '* L''actu pour les jeunes.'
-    url: https://www.franceinfo.fr
-    fiabilite: 2
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260622072730/https://www.franceinfo.fr/
-    date: null
-    corrobore: false
-  - texte: 'FRANCE 24 – EN DIRECT – Info et actualités internationales en continu
-      24h/24 · ⚽Mondial 2026 : suivez la compétition sur France 24 · Guerre au Moyen-Orient
-      :'
-    url: https://www.youtube.com/user/france24
-    fiabilite: 2
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260329120631/https://www.youtube.com/user/france24
-    date: null
-    corrobore: false
-  - texte: '# Le Monde in English – World news, culture and opinion.'
-    url: https://www.lemonde.fr
-    fiabilite: 4
-    backend: tavily
-    archive_url: http://web.archive.org/web/20260618053259/https://www.lemonde.fr/
-    date: null
-    corrobore: false
   signaux_faibles: []
-  fiabilite_globale: 2.16
+  fiabilite_globale: 2.0
   lacunes:
   - Signaux faibles non détectés en mode extractif — brancher un LLM (synthetiser(...,
     llm=...)) pour cette étape.
-  inaccessibles: []
+  validation:
+    valide: true
+    par: humain
+    horodatage: '2026-06-22T10:12:51+00:00'
+    gardees: 11
+    rejetees: 8
+    ajouts_manuels: 0
 ---
 
-# Corpus Deep Research — Quelles actualités pour les prochains jours en France?
+# Corpus validé — 
 
-_Collecte reseau · synthèse extractif · fiabilité globale 2.16/5 · 19 assertion(s)_
+_Validé le 2026-06-22T10:12:51+00:00 · 11 gardée(s), 8 rejetée(s), 0 ajout(s) manuel(s) · fiabilité globale 2.0/5_
 
-## Assertions sourcées
-- [2/5] Also in today's EMEA regional roundup: Ofcom consults on MSS band and more; RugGear joins Vodafone's mission-critical gang; Alibaba opens cloud region in France. — https://www.lightreading.com/satellite/eurobites-kyvistar-hooks-up-with-starlink-for-light-data-service  (tavily · Wed, 17 Ju)
+## Sources retenues
+- [2/5] Also in today's EMEA regional roundup: Ofcom consults on MSS band and more; RugGear joins Vodafone's mission-critical gang; Alibaba opens cloud region in France. — https://www.lightreading.com/satellite/eurobites-kyvistar-hooks-up-with-starlink-for-light-data-service  (tavily)
   ↳ archive : http://web.archive.org/web/20260620131939/https://www.lightreading.com/satellite/eurobites-kyvistar-hooks-up-with-starlink-for-light-data-service
-- [2/5] # France restricts public alcohol consumption and outdoor sports as heat wave bakes parts of Europe. — https://www.nbcnews.com/weather/heat/france-heat-wave-rcna351065  (tavily · Sun, 21 Ju)
+- [2/5] # France restricts public alcohol consumption and outdoor sports as heat wave bakes parts of Europe. — https://www.nbcnews.com/weather/heat/france-heat-wave-rcna351065  (tavily)
   ↳ archive : http://web.archive.org/web/20260622005813/https://www.nbcnews.com/weather/heat/france-heat-wave-rcna351065
-- [2/5] Bardella in Poland: We will win in 2027 and shift course in the EU. — https://www.euronews.com/my-europe/2026/06/20/france-swelters-in-heatwave-as-temperatures-look-set-to-hit-40c  (tavily · Sat, 20 Ju)
+- [2/5] Bardella in Poland: We will win in 2027 and shift course in the EU. — https://www.euronews.com/my-europe/2026/06/20/france-swelters-in-heatwave-as-temperatures-look-set-to-hit-40c  (tavily)
   ↳ archive : http://web.archive.org/web/20260621220323/https://www.euronews.com/my-europe/2026/06/20/france-swelters-in-heatwave-as-temperatures-look-set-to-hit-40c
-- [2/5] # France enters ‘exclusive’ negotiations with MBDA, Safran for long-range strike: DefMin. — https://breakingdefense.com/2026/06/france-enters-exclusive-negotiations-with-mbda-safran-for-long-range-strike-defmin/  (tavily · Mon, 15 Ju)
-- [2/5] 40 Years of Defense News. — https://www.defensenews.com/global/europe/2026/06/15/france-picks-mbda-safran-combo-to-supply-multiple-rocket-launcher/  (tavily · Mon, 15 Ju)
-- [2/5] # South of France Luxury Charter Shares Post-Race Insight from Monaco Grand Prix Week as 2027 Planning Begins. — https://markets.businessinsider.com/news/stocks/south-of-france-luxury-charter-shares-post-race-insight-from-monaco-grand-prix-week-as-2027-planning-begins-1036263054  (tavily · Fri, 19 Ju)
+- [2/5] # France enters ‘exclusive’ negotiations with MBDA, Safran for long-range strike: DefMin. — https://breakingdefense.com/2026/06/france-enters-exclusive-negotiations-with-mbda-safran-for-long-range-strike-defmin/  (tavily)
+- [2/5] 40 Years of Defense News. — https://www.defensenews.com/global/europe/2026/06/15/france-picks-mbda-safran-combo-to-supply-multiple-rocket-launcher/  (tavily)
+- [2/5] # South of France Luxury Charter Shares Post-Race Insight from Monaco Grand Prix Week as 2027 Planning Begins. — https://markets.businessinsider.com/news/stocks/south-of-france-luxury-charter-shares-post-race-insight-from-monaco-grand-prix-week-as-2027-planning-begins-1036263054  (tavily)
 - [2/5] # La canicule s'amplifie encore, la moitié des Français en vigilance rouge
 
 Published: 2026-06-22T02:39:20+00:00
@@ -371,8 +278,8 @@ Publicité
 
 # La canicule s'amplifie encore, la moitié des Français en vigilance rouge
 
-Bordeaux (AFP) – Les chaleurs étouffantes qui frappent le pays depuis près d'une semaine "montent d'un cran" lundi avec 49 départements et 35 millions de Français placés en vigilance rouge canicule par Météo France, poussant les autorit — https://www.france24.com/fr/info-en-continu/20260622-la-canicule-s-amplifie-encore-la-moiti%C3%A9-des-fran%C3%A7ais-en-vigilance-rouge  (exa · 2026-06-22)
-- [2/5] "C’est la grande cacophonie": Oraux reportés, écoles fermées... — https://rmc.bfmtv.com/actualites/societe/education/oraux-reportes-ecoles-fermees-l-education-obligee-a-des-amenagements-face-a-la-canicule_AV-202606220109.html  (exa · 2026-06-22)
+Bordeaux (AFP) – Les chaleurs étouffantes qui frappent le pays depuis près d'une semaine "montent d'un cran" lundi avec 49 départements et 35 millions de Français placés en vigilance rouge canicule par Météo France, poussant les autorit — https://www.france24.com/fr/info-en-continu/20260622-la-canicule-s-amplifie-encore-la-moiti%C3%A9-des-fran%C3%A7ais-en-vigilance-rouge  (exa)
+- [2/5] "C’est la grande cacophonie": Oraux reportés, écoles fermées... — https://rmc.bfmtv.com/actualites/societe/education/oraux-reportes-ecoles-fermees-l-education-obligee-a-des-amenagements-face-a-la-canicule_AV-202606220109.html  (exa)
 - [2/5] Nouvel examen du texte sur la fin de vie à l'Assemblée, avant l'adoption définitive
 
 Accéder au contenu principal
@@ -381,12 +288,12 @@ Publicité
 
 # Nouvel examen du texte sur la fin de vie à l'Assemblée, avant l'adoption définitive
 
-Paris (France) (AFP) – Les députés examinent pour la troisième fois à partir de lundi la proposition de loi créant un droit à l'aide à mourir et devraient, sauf coup de théâtre, l'adopter à nouveau, prélude à son adoption définitive le 15 juillet. — https://www.france24.com/fr/info-en-continu/20260622-nouvel-examen-du-texte-sur-la-fin-de-vie-%C3%A0-l-assembl%C3%A9e-avant-l-adoption-d%C3%A9finitive-1  (exa · 2026-06-22)
+Paris (France) (AFP) – Les députés examinent pour la troisième fois à partir de lundi la proposition de loi créant un droit à l'aide à mourir et devraient, sauf coup de théâtre, l'adopter à nouveau, prélude à son adoption définitive le 15 juillet. — https://www.france24.com/fr/info-en-continu/20260622-nouvel-examen-du-texte-sur-la-fin-de-vie-%C3%A0-l-assembl%C3%A9e-avant-l-adoption-d%C3%A9finitive-1  (exa)
 - [2/5] franceinfo - Actualités en temps réel et info en direct
 
 ## Réouverture du détroit d'Ormuz, cessez-le-feu, négociations à venir… Ce que l'on sait de l'accord conclu entre les Etats-Unis et l'Iran
 
-Washington et Téhéran ont annoncé lundi un accord qui devrait mettre fin aux hostilités au Moyen-Orient. — https://www.franceinfo.fr/  (exa · 2026-06-22)
+Washington et Téhéran ont annoncé lundi un accord qui devrait mettre fin aux hostilités au Moyen-Orient. — https://www.franceinfo.fr/  (exa)
   ↳ archive : http://web.archive.org/web/20260622072730/https://www.franceinfo.fr/
 - [2/5] # Canicule en France : 49 départements en vigilance rouge
 
@@ -402,41 +309,4 @@ Météo
 
 # Canicule en France : 49 départements en vigilance rouge, écoles fermées et records de chaleur attendus
 
-Par Sciences et Avenir avec AFP le 22.06.2026 à 10h06 Ecouter 5 min. — https://www.sciencesetavenir.fr/nature-environnement/meteo/canicule-en-france-49-departements-en-vigilance-rouge-ecoles-fermees-et-records-de-chaleur-attendus_193332  (exa · 2026-06-22)
-- [4/5] Le Monde in English – World news, culture and opinion
-
-# Iran, US announce framework deal to end war
-
-KENT NISHIMURA/AFP
-
-The agreement, which is set to be signed on June 19 in Switzerland, lays out the principles for ending the fighting, ahead of a 60-day round of negotiations on Iran's nuclear program, enriched uranium stockpiles and the lifting of US sanctions. — https://www.lemonde.fr/  (exa)
-  ↳ archive : http://web.archive.org/web/20260618053259/https://www.lemonde.fr/
-- [1/5] Suivez l’actualité en direct dans l’application La Croix. — https://www.la-croix.com  (tavily)
-  ↳ archive : http://web.archive.org/web/20260619111321/https://www.la-croix.com/
-- [2/5] Météo-France à vos côtés, dans un climat qui change. — https://meteofrance.com/actualites  (tavily)
-  ↳ archive : http://web.archive.org/web/20260620152610/https://meteofrance.com/actualites
-- [2/5] * Télécharger l'appli pour Android. — https://news.google.com/home?hl=fr&gl=FR&ceid=FR%3Afr  (tavily)
-  ↳ archive : http://web.archive.org/web/20260622092814/https://news.google.com/home?hl=fr&gl=FR&ceid=FR:fr
-- [2/5] Vidéos Longs formats Newsletters Émissions Podcasts. — https://www.bfmtv.com  (tavily)
-- [2/5] * L'actu pour les jeunes. — https://www.franceinfo.fr  (tavily)
-  ↳ archive : http://web.archive.org/web/20260622072730/https://www.franceinfo.fr/
-- [2/5] FRANCE 24 – EN DIRECT – Info et actualités internationales en continu 24h/24 · ⚽Mondial 2026 : suivez la compétition sur France 24 · Guerre au Moyen-Orient : — https://www.youtube.com/user/france24  (tavily)
-  ↳ archive : http://web.archive.org/web/20260329120631/https://www.youtube.com/user/france24
-- [4/5] # Le Monde in English – World news, culture and opinion. — https://www.lemonde.fr  (tavily)
-  ↳ archive : http://web.archive.org/web/20260618053259/https://www.lemonde.fr/
-
-## Chronologie
-- 2026-06-22 — La canicule s'amplifie encore, la moitié des Français en vigilance rouge (https://www.france24.com/fr/info-en-continu/20260622-la-canicule-s-amplifie-encore-la-moiti%C3%A9-des-fran%C3%A7ais-en-vigilance-rouge)
-- 2026-06-22 — "C’est la grande cacophonie": Oraux reportés, écoles fermées... l'Education nationale bousculée par la canicule (https://rmc.bfmtv.com/actualites/societe/education/oraux-reportes-ecoles-fermees-l-education-obligee-a-des-amenagements-face-a-la-canicule_AV-202606220109.html)
-- 2026-06-22 — Nouvel examen du texte sur la fin de vie à l'Assemblée, avant l'adoption définitive (https://www.france24.com/fr/info-en-continu/20260622-nouvel-examen-du-texte-sur-la-fin-de-vie-%C3%A0-l-assembl%C3%A9e-avant-l-adoption-d%C3%A9finitive-1)
-- 2026-06-22 — franceinfo - Actualités en temps réel et info en direct (https://www.franceinfo.fr/)
-- 2026-06-22 — Canicule en France : 49 départements en vigilance rouge (https://www.sciencesetavenir.fr/nature-environnement/meteo/canicule-en-france-49-departements-en-vigilance-rouge-ecoles-fermees-et-records-de-chaleur-attendus_193332)
-- Fri, 19 Jun 2026 16:24:22 GMT — South of France Luxury Charter Shares Post-Race Insight from Monaco Grand Prix Week as 2027 Planning Begins - markets.businessinsider.com (https://markets.businessinsider.com/news/stocks/south-of-france-luxury-charter-shares-post-race-insight-from-monaco-grand-prix-week-as-2027-planning-begins-1036263054)
-- Mon, 15 Jun 2026 12:14:11 GMT — France picks MBDA-Safran combo to supply multiple rocket launcher - Defense News (https://www.defensenews.com/global/europe/2026/06/15/france-picks-mbda-safran-combo-to-supply-multiple-rocket-launcher/)
-- Mon, 15 Jun 2026 12:35:01 GMT — France enters ‘exclusive’ negotiations with MBDA, Safran for long-range strike: DefMin - Breaking Defense (https://breakingdefense.com/2026/06/france-enters-exclusive-negotiations-with-mbda-safran-for-long-range-strike-defmin/)
-- Sat, 20 Jun 2026 08:48:31 GMT — France swelters in heatwave as temperatures look set to hit 40C - Euronews.com (https://www.euronews.com/my-europe/2026/06/20/france-swelters-in-heatwave-as-temperatures-look-set-to-hit-40c)
-- Sun, 21 Jun 2026 19:28:17 GMT — France restricts public alcohol consumption and outdoor sports as heat wave bakes parts of Europe - NBC News (https://www.nbcnews.com/weather/heat/france-heat-wave-rcna351065)
-- Wed, 17 Jun 2026 06:32:44 GMT — Eurobites: Kyvistar taps Starlink for 'light data' service - Light Reading (https://www.lightreading.com/satellite/eurobites-kyvistar-hooks-up-with-starlink-for-light-data-service)
-
-## Lacunes
-- Signaux faibles non détectés en mode extractif — brancher un LLM (synthetiser(..., llm=...)) pour cette étape.
+Par Sciences et Avenir avec AFP le 22.06.2026 à 10h06 Ecouter 5 min. — https://www.sciencesetavenir.fr/nature-environnement/meteo/canicule-en-france-49-departements-en-vigilance-rouge-ecoles-fermees-et-records-de-chaleur-attendus_193332  (exa)
