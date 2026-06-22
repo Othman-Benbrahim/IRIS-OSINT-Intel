@@ -1,0 +1,4 @@
+pyyaml
+ddgs
+tavily-python
+exa-py
