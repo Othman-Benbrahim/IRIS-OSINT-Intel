@@ -1,0 +1,83 @@
+{
+  "version": "1.6",
+  "plafond_sources_total": 20,
+  "note_priorite": "Généralistes = chaîne de repli par priorité croissante (le premier qui répond coupe les suivants). Spécialisés/additifs = toujours ajoutés. Tavily primaire (web + actualité datée) ; Exa additif (recherche sémantique sur factuel/contradictoire/signaux faibles) ; DuckDuckGo repli web ; News (ddgs) repli actualité.",
+  "sources": [
+    {
+      "id": "tavily",
+      "nom": "Tavily",
+      "type": "web",
+      "actif": true,
+      "condition": "toujours",
+      "priorite": 5,
+      "cle": "",
+      "max_resultats": 8,
+      "note": "Moteur principal : API de recherche conçue pour l'IA (contenu propre). Web (topic=general) + actualité datée (topic=news). 1000 crédits/mois gratuits sans carte. Fonctionne sans clé (bridé) ; colle ta clé dans le panneau pour de meilleures limites. Requiert : pip install tavily-python."
+    },
+    {
+      "id": "exa",
+      "nom": "Exa",
+      "type": "web",
+      "actif": true,
+      "condition": "toujours",
+      "cle": "62830093-75f3-49ee-b357-e4f3ccfe4df5",
+      "max_resultats": 6,
+      "note": "Source ADDITIVE (complète Tavily, toujours ajoutée) : recherche sémantique/neuronale qui fait remonter des sources reliées par le sens. Active sur factuel/contradictoire/signaux faibles (PAS l'actualité, laissée à Tavily car index plus étroit sur le très récent et le français). 1000 recherches/mois gratuites + 10 $ de crédits, sans carte. EXIGE une clé (pas de mode sans clé) : sans clé, Exa est simplement ignoré. Requiert : pip install exa-py."
+    },
+    {
+      "id": "duckduckgo",
+      "nom": "DuckDuckGo",
+      "type": "web",
+      "actif": true,
+      "condition": "toujours",
+      "priorite": 20,
+      "max_resultats": 8,
+      "note": "Repli généraliste pour le web (non daté). Requiert : pip install ddgs."
+    },
+    {
+      "id": "news",
+      "nom": "News (DuckDuckGo)",
+      "type": "actualite",
+      "actif": true,
+      "condition": "horizon_court",
+      "horizon_max_mois": 12,
+      "priorite": 30,
+      "max_resultats": 8,
+      "note": "Repli d'actualité si Tavily échoue (horizon <= 12 mois). Requiert : pip install ddgs."
+    },
+    {
+      "id": "wikipedia",
+      "nom": "Wikipedia",
+      "type": "encyclopedie",
+      "actif": true,
+      "condition": "contexte",
+      "lang": "fr",
+      "max_resultats": 3,
+      "note": "Spécialisé (contexte intemporel). Bibliothèque standard, sans dépendance."
+    },
+    {
+      "id": "arxiv",
+      "nom": "ArXiv",
+      "type": "academique",
+      "actif": false,
+      "condition": "domaine_academique",
+      "max_resultats": 5,
+      "note": "Désactivé par défaut. Réactivable depuis le panneau des sources si besoin académique."
+    },
+    {
+      "id": "wayback",
+      "nom": "Wayback Machine",
+      "type": "archive",
+      "role": "enrichissement",
+      "actif": true,
+      "condition": "toujours",
+      "note": "Enrichisseur : pour chaque source collectée, récupère le snapshot archivé le plus proche. Indexé par URL. Bibliothèque standard."
+    }
+  ],
+  "garde_fous": {
+    "sources_ouvertes_uniquement": true,
+    "source_inaccessible": "marquer [inaccessible] et passer au repli",
+    "aucune_source_inventee": true,
+    "chaque_assertion_porte_son_url": true
+  }
+}

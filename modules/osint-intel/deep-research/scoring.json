@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "note": "Scoring de fiabilité a priori (terrain), heuristique et transparent. Il GUIDE la validation humaine, il ne décide pas. Toute calibration formelle (pondération, vraisemblances, Brier) relève d'IRIS-Station, pas d'ici.",
+  "defaut_web": 2,
+  "backends": {
+    "wikipedia": 3,
+    "gdelt": 3,
+    "news": 3
+  },
+  "paliers": [
+    {
+      "note": 5,
+      "domaines": ["imf.org", "worldbank.org", "oecd.org", "bis.org", "ecb.europa.eu",
+                   ".gouv.fr", ".gov", "europa.eu", "un.org", "who.int",
+                   "banque-france.fr", "insee.fr"]
+    },
+    {
+      "note": 4,
+      "domaines": ["reuters.com", "apnews.com", "afp.com", "bloomberg.com", "ft.com",
+                   "wsj.com", "lemonde.fr", "lesechos.fr", "economist.com",
+                   "nature.com", "science.org", ".edu", "arxiv.org"]
+    },
+    {
+      "note": 3,
+      "domaines": ["wikipedia.org", "britannica.com"]
+    },
+    {
+      "note": 1,
+      "domaines": ["medium.com", "substack.com", "reddit.com", "x.com", "twitter.com",
+                   "facebook.com", "wordpress.com", "blogspot.com", "quora.com"]
+    }
+  ],
+  "corroboration": {
+    "actif": true,
+    "bonus": 1,
+    "seuil_similarite": 0.3,
+    "note": "Une assertion confirmée par au moins une source d'un domaine DIFFÉRENT (similarité de tokens >= seuil) gagne +bonus, plafonné à 5. Les sources [À VÉRIFIER] n'en bénéficient jamais."
+  }
+}
