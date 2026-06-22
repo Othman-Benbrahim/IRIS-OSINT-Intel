@@ -1,1 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barrière de validation — OSINT-Intel</title>
+<style>
+  :root {
+    --ink: #11151c;
+    --surface: #1a2129;
+    --surface-2: #212a34;
+    --line: #2c3742;
+    --text: #e6e9ee;
+    --muted: #8b97a7;
+    --signal: #4cc4a3;
+    --signal-dim: #21443c;
+    --alert: #d9694f;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ink); color: var(--text);
+    font-family: var(--sans); line-height: 1.5;
+    padding-bottom: 96px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px; }
 
+  /* En-tête */
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--signal); margin: 0 0 8px;
+  }
+  h1 { font-size: 26px; font-weight: 650; margin: 0 0 6px; letter-spacing: -.01em; }
+  .question {
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    border-left: 2px solid var(--line); padding-left: 12px; margin: 14px 0 0;
+  }
+
+  /* Bandeau de stats */
+  .stats {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    margin: 24px 0; padding: 16px 0; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat .n { font-family: var(--mono); font-size: 22px; font-weight: 600; }
+  .stat .l {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); margin-top: 2px;
+  }
+
+  /* Actions groupées */
+  .bulk { display: flex; gap: 10px; margin-bottom: 18px; }
+  .btn {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .04em;
+    background: var(--surface-2); color: var(--text);
+    border: 1px solid var(--line); border-radius: 6px;
+    padding: 8px 14px; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--muted); }
+  .btn:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+  /* Fiches sources */
+  .fiche {
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 8px; padding: 16px; margin-bottom: 10px;
+    transition: border-color .15s, opacity .15s;
+  }
+  .fiche.rejetee { opacity: .42; border-style: dashed; }
+  .fiche.retenue { border-color: var(--signal-dim); }
+  .check {
+    appearance: none; width: 20px; height: 20px; margin-top: 2px;
+    border: 1.5px solid var(--muted); border-radius: 5px;
+    background: transparent; cursor: pointer; position: relative;
+  }
+  .check:checked { background: var(--signal); border-color: var(--signal); }
+  .check:checked::after {
+    content: "✓"; color: var(--ink); font-size: 13px; font-weight: 700;
+    position: absolute; inset: 0; display: grid; place-items: center;
+  }
+  .check:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+  .url { font-family: var(--mono); font-size: 13px; color: var(--text);
+         word-break: break-all; }
+  .url a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--muted); }
+  .meta { display: flex; align-items: center; gap: 12px; margin: 8px 0; flex-wrap: wrap; }
+  .pips { display: inline-flex; gap: 3px; }
+  .pip { width: 14px; height: 5px; border-radius: 1px; background: var(--line); }
+  .pip.on { background: var(--signal); }
+  .pip.on.lo { background: var(--alert); }
+  .pip.on.mid { background: #c9a14a; }
+  .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px;
+  }
+  .archive { font-family: var(--mono); font-size: 11px; color: var(--signal);
+             text-decoration: none; }
+  .archive:hover { text-decoration: underline; }
+  .extrait { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+
+  /* Ajout manuel */
+  details.ajout { margin: 22px 0; border: 1px dashed var(--line); border-radius: 8px; }
+  details.ajout summary {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .04em;
+    padding: 12px 16px; cursor: pointer; color: var(--muted);
+  }
+  details.ajout summary:hover { color: var(--text); }
+  .form { padding: 0 16px 16px; display: grid; gap: 10px; }
+  .form input, .form textarea {
+    background: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+    color: var(--text); font-family: var(--mono); font-size: 13px; padding: 9px 11px;
+  }
+  .form input:focus, .form textarea:focus { outline: none; border-color: var(--signal); }
+  .form label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* Pied collant : le verrou */
+  .gate {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(17,21,28,.94); border-top: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .gate-inner {
+    max-width: 860px; margin: 0 auto; padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .compteur { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .compteur b { color: var(--signal); font-size: 20px; }
+  .lancer {
+    font-family: var(--mono); font-size: 13px; letter-spacing: .04em;
+    background: var(--signal); color: var(--ink); font-weight: 650;
+    border: none; border-radius: 7px; padding: 12px 20px; cursor: pointer;
+  }
+  .lancer:disabled { background: var(--surface-2); color: var(--muted); cursor: not-allowed; }
+  .lancer:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+
+  .banniere {
+    background: var(--signal-dim); border: 1px solid var(--signal);
+    border-radius: 8px; padding: 16px; margin-bottom: 18px;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .vide { color: var(--muted); font-family: var(--mono); padding: 40px 0; text-align: center; }
+
+  @media (max-width: 560px) {
+    .gate-inner { flex-direction: column; align-items: stretch; }
+    .lancer { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">OSINT-Intel · Étape 0.5</p>
+    <h1>Barrière de validation</h1>
+    <p class="question" id="question">Chargement…</p>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="bulk">
+      <button class="btn" id="tout-conserver">Tout conserver</button>
+      <button class="btn" id="tout-rejeter">Tout rejeter</button>
+    </div>
+
+    <div id="banniere"></div>
+    <div id="liste"></div>
+
+    <details class="ajout">
+      <summary>+ Ajouter une source manuelle</summary>
+      <div class="form">
+        <div><label>URL</label><br><input id="add-url" placeholder="https://…" style="width:100%"></div>
+        <div><label>Extrait</label><br><textarea id="add-extrait" rows="2" placeholder="Assertion sourcée…" style="width:100%"></textarea></div>
+        <div><label>Fiabilité (1-5)</label><br><input id="add-fiab" type="number" min="1" max="5" value="3"></div>
+        <button class="btn" id="ajouter">Ajouter au corpus</button>
+      </div>
+    </details>
+  </div>
+
+  <div class="gate">
+    <div class="gate-inner">
+      <span class="compteur" id="compteur">—</span>
+      <button class="lancer" id="lancer" disabled>Lancer l'analyse</button>
+    </div>
+  </div>
+
+<script>
+  let sources = [];
+  let total = 0;
+
+  function classePip(fiab, i) {
+    if (i >= fiab) return "pip";
+    if (fiab <= 2) return "pip on lo";
+    if (fiab === 3) return "pip on mid";
+    return "pip on";
+  }
+
+  function rendreStats(s) {
+    document.getElementById("question").textContent = s.question || "—";
+    const items = [
+      [s.total, "sources trouvées"],
+      [s.fiabilite_globale + "/5", "fiabilité globale"],
+      [s.backends.length, "backends"],
+      [s.inaccessibles, "inaccessibles"],
+    ];
+    document.getElementById("stats").innerHTML = items.map(
+      ([n, l]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`
+    ).join("");
+  }
+
+  function rendreListe() {
+    const liste = document.getElementById("liste");
+    if (!sources.length) {
+      liste.innerHTML = '<p class="vide">Aucune source. Ajoutez-en une manuellement pour lancer l\'analyse.</p>';
+      majCompteur(); return;
+    }
+    liste.innerHTML = sources.map((s, i) => {
+      const pips = [0,1,2,3,4].map(j => `<span class="${classePip(s.fiabilite||0, j)}"></span>`).join("");
+      const arch = s.archive_url ? `<a class="archive" href="${s.archive_url}" target="_blank" rel="noopener">archive ↗</a>` : "";
+      const tag = s.manuel ? "manuel" : (s.backend || "—");
+      return `<div class="fiche ${s.garde ? 'retenue' : 'rejetee'}">
+        <input class="check" type="checkbox" data-i="${i}" ${s.garde ? 'checked' : ''} aria-label="Conserver cette source">
+        <div>
+          <div class="url"><a href="${s.url}" target="_blank" rel="noopener">${s.url || '[sans URL]'}</a></div>
+          <div class="meta"><span class="pips">${pips}</span><span class="tag">${tag}</span>${arch}</div>
+          <p class="extrait">${s.extrait || ''}</p>
+        </div></div>`;
+    }).join("");
+    liste.querySelectorAll(".check").forEach(c =>
+      c.addEventListener("change", e => {
+        sources[+e.target.dataset.i].garde = e.target.checked;
+        rendreListe();
+      }));
+    majCompteur();
+  }
+
+  function majCompteur() {
+    const n = sources.filter(s => s.garde).length;
+    document.getElementById("compteur").innerHTML = `<b>${n}</b> source(s) retenue(s) sur ${total + (sources.length - total)}`;
+    document.getElementById("lancer").disabled = (n === 0);
+  }
+
+  document.getElementById("tout-conserver").onclick = () => { sources.forEach(s => s.garde = true); rendreListe(); };
+  document.getElementById("tout-rejeter").onclick   = () => { sources.forEach(s => s.garde = false); rendreListe(); };
+
+  document.getElementById("ajouter").onclick = () => {
+    const url = document.getElementById("add-url").value.trim();
+    if (!url) return;
+    sources.push({
+      url, extrait: document.getElementById("add-extrait").value.trim(),
+      fiabilite: Math.max(1, Math.min(5, +document.getElementById("add-fiab").value || 3)),
+      backend: "manuel", archive_url: null, manuel: true, garde: true,
+    });
+    document.getElementById("add-url").value = "";
+    document.getElementById("add-extrait").value = "";
+    rendreListe();
+  };
+
+  document.getElementById("lancer").onclick = async () => {
+    const gardees = sources.filter(s => s.garde && !s.manuel).map(s => s.url);
+    const ajouts = sources.filter(s => s.garde && s.manuel)
+                          .map(s => ({url: s.url, extrait: s.extrait, fiabilite: s.fiabilite}));
+    try {
+      const rep = await fetch("/api/valider", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({gardees, ajouts}),
+      });
+      const d = await rep.json();
+      const v = d.validation;
+      document.getElementById("banniere").innerHTML =
+        `<div class="banniere">Corpus validé — ${v.gardees + v.ajouts_manuels} source(s) transmise(s) à l'analyse `
+        + `(${v.rejetees} rejetée(s)). Écrit dans <b>${d.chemin}</b>.</div>`;
+      document.getElementById("lancer").textContent = "Analyse autorisée";
+      document.getElementById("lancer").disabled = true;
+      window.scrollTo({top: 0, behavior: "smooth"});
+    } catch (e) {
+      document.getElementById("banniere").innerHTML =
+        `<div class="banniere" style="border-color:var(--alert)">Échec de l'écriture du corpus validé. Vérifiez que le sidecar tourne, puis relancez.</div>`;
+    }
+  };
+
+  fetch("/api/corpus").then(r => r.json()).then(d => {
+    rendreStats(d.stats);
+    total = d.sources.length;
+    sources = d.sources.map(s => ({...s, manuel: false, garde: true}));
+    rendreListe();
+  }).catch(() => {
+    document.getElementById("liste").innerHTML =
+      '<p class="vide">Impossible de charger le corpus. Démarrez le sidecar : python serveur_validation.py --corpus corpus.md</p>';
+  });
+</script>
+</body>
+</html>
