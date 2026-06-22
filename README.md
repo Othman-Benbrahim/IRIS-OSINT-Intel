@@ -289,5 +289,4 @@ terrain + export YAML, (5) mode descendant + intégration launcher.
 
 ## Licence
 
-À définir par l'auteur avant publication (par ex. MIT, Apache-2.0 ou AGPL-3.0).
-Ajoutez un fichier `LICENSE` à la racine.
+[MIT](https://github.com/Othman-Benbrahim/IRIS-OSINT-Intel/blob/main/LICENSE)
