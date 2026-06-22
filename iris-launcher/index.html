@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IRIS∞ — Launcher</title>
+<style>
+  :root {
+    --ink:#11151c; --surface:#1a2129; --surface-2:#212a34; --line:#2c3742;
+    --text:#e6e9ee; --muted:#8b97a7; --signal:#4cc4a3; --lab:#6a8fd6; --tree:#b08bd6;
+    --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--ink); color:var(--text); font-family:var(--sans);
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px; }
+  .wrap { max-width:880px; width:100%; }
+  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.24em;
+             text-transform:uppercase; color:var(--signal); margin:0 0 8px; }
+  h1 { font-size:30px; font-weight:650; letter-spacing:-.01em; margin:0; }
+  .sub { color:var(--muted); margin:8px 0 32px; font-size:14px; }
+  .grille { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .branche {
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:20px; text-decoration:none; color:inherit; display:flex; flex-direction:column;
+    transition:border-color .15s, transform .15s;
+  }
+  .branche:hover { border-color:var(--accent,var(--signal)); transform:translateY(-2px); }
+  .branche:focus-visible { outline:2px solid var(--accent,var(--signal)); outline-offset:2px; }
+  .role { font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+          text-transform:uppercase; color:var(--accent,var(--muted)); }
+  .nom { font-size:18px; font-weight:600; margin:10px 0 6px; }
+  .desc { color:var(--muted); font-size:13px; line-height:1.5; flex:1; }
+  .go { font-family:var(--mono); font-size:12px; color:var(--accent,var(--signal)); margin-top:14px; }
+  .osint { --accent:var(--signal); }
+  .iris  { --accent:var(--lab); }
+  .ygg   { --accent:var(--tree); }
+  .pied { font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:28px; }
+  @media (max-width:640px){ .grille{ grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">IRIS∞</p>
+    <h1>Launcher</h1>
+    <p class="sub">Trois branches indépendantes, un même contrat d'échange.</p>
 
+    <div class="grille">
+      <a class="branche osint" href="http://127.0.0.1:8765" aria-label="Ouvrir OSINT-Intel">
+        <span class="role">Terrain</span>
+        <span class="nom">OSINT-Intel</span>
+        <span class="desc">Acquisition, triage des sources, hypothèses brutes. Produit le rapport sourcé.</span>
+        <span class="go">Ouvrir →</span>
+      </a>
+      <a class="branche iris" href="http://127.0.0.1:8780" aria-label="Ouvrir IRIS-Station">
+        <span class="role">Laboratoire</span>
+        <span class="nom">IRIS-Station</span>
+        <span class="desc">Formalisation : matrice ACH, Bayes, calibration, graphe, synthèse.</span>
+        <span class="go">Ouvrir →</span>
+      </a>
+      <a class="branche ygg" href="http://127.0.0.1:8790" aria-label="Ouvrir Yggdrasil">
+        <span class="role">Exploration</span>
+        <span class="nom">Yggdrasil</span>
+        <span class="desc">Arbre des possibles, bifurcations, vigie prospective.</span>
+        <span class="go">Ouvrir →</span>
+      </a>
+    </div>
+
+    <p class="pied">Échange via fichiers .md (YAML front matter) · base partagée : shared/findings_cross/</p>
+  </div>
+</body>
+</html>
