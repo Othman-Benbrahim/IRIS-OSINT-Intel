@@ -1,0 +1,11 @@
+{
+  "fantasyai": {
+    "url": "https://fantasyai.cloud/api/v1/chat/completions",
+    "cle": "fantasy-8c4d18520829169dd6ae4e85190f3b8a181d30886b64cc0b",
+    "modele": "gpt-5.5"
+  },
+  "ollama": {
+    "hote": "http://localhost:11434",
+    "modele": "llama3.1"
+  }
+}
